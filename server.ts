@@ -1,7 +1,9 @@
 import express from "express";
 
-import authMiddleware from "./middlewares/auth.middleware";
-const { timeController, metricsController } = require("./controllers");
+const { authMiddleware } = require("./middlewares/auth.middleware");
+const { metricsMiddleware } = require("./middlewares/metrics.middleware");
+
+const timeController = require("./controllers/time.controller");
 
 require("dotenv").config();
 
@@ -9,9 +11,9 @@ const app = express();
 
 app.use(authMiddleware);
 
-app.get("/time", timeController.getTime);
+app.use(metricsMiddleware);
 
-app.get("/metrics", metricsController.getMetrics);
+app.get("/time", timeController.getTime);
 
 // 404
 app.use((req, res) => {
