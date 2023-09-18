@@ -1,4 +1,5 @@
 import express from "express";
+const cors = require("cors");
 
 const { authMiddleware } = require("./middlewares/auth.middleware");
 const { metricsMiddleware } = require("./middlewares/metrics.middleware");
@@ -8,6 +9,7 @@ const timeController = require("./controllers/time.controller");
 require("dotenv").config();
 
 const app = express();
+app.use(cors());
 
 app.use(authMiddleware);
 
